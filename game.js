@@ -92,7 +92,7 @@ stars.children.iterate(function (child) {
 });
 
 this.physics.add.collider(player, platforms);
-this.physics.add.collider(flower, platforms);
+this.physics.add.collider(flowers, platforms);
 this.physics.add.overlap(player, flowers, collectStar, null, this);
 scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 flower2s = this.physics.add.group();
