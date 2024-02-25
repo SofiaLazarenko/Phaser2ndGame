@@ -36,7 +36,7 @@ function preload ()
     );
 }
 
-var ground;
+var platforms;
 
 function create ()
 {
