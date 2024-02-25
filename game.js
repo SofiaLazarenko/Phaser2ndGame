@@ -27,7 +27,7 @@ if(gameOver = true)
 function preload ()
 {
     this.load.image('sky', 'assets/sky.jpg');
-    this.load.image('ground', 'assets/ground.png');
+    this.load.image('ground', 'assets/platform.png');
     this.load.image('flower', 'assets/flower.png');
     this.load.image('flower2', 'assets/flower2.png');
     this.load.spritesheet('mavka', 
@@ -91,15 +91,15 @@ stars.children.iterate(function (child) {
 
 });
 
-this.physics.add.collider(player, ground);
-this.physics.add.collider(flower, ground);
-this.physics.add.overlap(player, flower, collectStar, null, this);
+this.physics.add.collider(player, platforms);
+this.physics.add.collider(flower, platforms);
+this.physics.add.overlap(player, flowers, collectStar, null, this);
 scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-flower2 = this.physics.add.group();
+flower2s = this.physics.add.group();
 
-this.physics.add.collider(flower2, ground);
+this.physics.add.collider(flower2s, platforms);
 
-this.physics.add.collider(player, flower2, hitBomb, null, this);
+this.physics.add.collider(player, flower2s, hitBomb, null, this);
 }
 
 function update ()
