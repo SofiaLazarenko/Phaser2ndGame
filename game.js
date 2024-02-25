@@ -40,7 +40,7 @@ var ground;
 
 function create ()
 {
-    this.add.image(400, 300, 'sky');
+    this.add.image(800, 600, 'sky');
     platforms = this.physics.add.staticGroup();
 
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -79,7 +79,7 @@ this.anims.create({
 
 });
 
-stars = this.physics.add.group({
+flowers = this.physics.add.group({
     key: 'flower',
     repeat: 11,
     setXY: { x: 12, y: 0, stepX: 70 }
@@ -90,6 +90,7 @@ stars.children.iterate(function (child) {
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
 });
+platforms = this.physics.add.staticGroup();
 
 this.physics.add.collider(player, platforms);
 this.physics.add.collider(flowers, platforms);
