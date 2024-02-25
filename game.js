@@ -48,36 +48,13 @@ function create ()
     platforms.create(600, 400, 'ground');
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
-    this.add.image(400, 300, 'flower');
-
+   
     player = this.physics.add.sprite(100, 450, 'mavka');
 
-player.setBounce(0.2);
-player.setCollideWorldBounds(true);
 
-this.anims.create({
-    key: 'left',
-    frames: this.anims.generateFrameNumbers('mavka', { start: 0, end: 3 }),
-    frameRate: 10,
-    repeat: -1
-});
-
-this.anims.create({
-    key: 'turn',
-    frames: [ { key: 'mavka', frame: 4 } ],
-    frameRate: 20
-});
-
-this.anims.create({
-    key: 'right',
-    frames: this.anims.generateFrameNumbers('mavka', { start: 5, end: 8 }),
-    frameRate: 10,
-    repeat: -1
-    
-    
   
 
-});
+
 
 flowers = this.physics.add.group({
     key: 'flower',
@@ -85,7 +62,7 @@ flowers = this.physics.add.group({
     setXY: { x: 12, y: 0, stepX: 70 }
 });
 
-stars.children.iterate(function (child) {
+flowers.children.iterate(function (child) {
 
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
