@@ -26,12 +26,12 @@ if(gameOver = true)
 
 function preload ()
 {
-    this.load.image('sky', 'assets/sky.jpg');
+    this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
-    this.load.image('flower', 'assets/flower.png');
-    this.load.image('flower2', 'assets/flower2.png');
-    this.load.spritesheet('mavka', 
-        'assets/mavka.png',
+    this.load.image('star', 'assets/star.png');
+    this.load.image('bomb', 'assets/bomb.png');
+    this.load.spritesheet('dude', 
+        'assets/dude.png',
         { frameWidth: 32, frameHeight: 48 }
     );
 }
@@ -40,7 +40,7 @@ var platforms;
 
 function create ()
 {
-    this.add.image(800, 600, 'sky');
+    this.add.image(400, 300, 'sky');
     platforms = this.physics.add.staticGroup();
 
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -48,36 +48,58 @@ function create ()
     platforms.create(600, 400, 'ground');
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
-   
-    player = this.physics.add.sprite(100, 450, 'mavka');
+    this.add.image(400, 300, 'star');
 
+    player = this.physics.add.sprite(100, 450, 'dude');
 
+player.setBounce(0.2);
+player.setCollideWorldBounds(true);
+
+this.anims.create({
+    key: 'left',
+    frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1
+});
+
+this.anims.create({
+    key: 'turn',
+    frames: [ { key: 'dude', frame: 4 } ],
+    frameRate: 20
+});
+
+this.anims.create({
+    key: 'right',
+    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+    frameRate: 10,
+    repeat: -1
+    
+    
   
 
+});
 
-
-flowers = this.physics.add.group({
-    key: 'flower',
+stars = this.physics.add.group({
+    key: 'star',
     repeat: 11,
     setXY: { x: 12, y: 0, stepX: 70 }
 });
 
-flowers.children.iterate(function (child) {
+stars.children.iterate(function (child) {
 
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
 });
-platforms = this.physics.add.staticGroup();
 
 this.physics.add.collider(player, platforms);
-this.physics.add.collider(flowers, platforms);
-this.physics.add.overlap(player, flowers, collectStar, null, this);
+this.physics.add.collider(stars, platforms);
+this.physics.add.overlap(player, stars, collectStar, null, this);
 scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-flower2s = this.physics.add.group();
+bombs = this.physics.add.group();
 
-this.physics.add.collider(flower2s, platforms);
+this.physics.add.collider(bombs, platforms);
 
-this.physics.add.collider(player, flower2s, hitBomb, null, this);
+this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
 function update ()
@@ -108,13 +130,13 @@ if (cursors.up.isDown && player.body.touching.down)
     player.setVelocityY(-330);
 }
 }
-function collectStar (player, flower)
+function collectStar (player, star)
 {
     star.disableBody(true, true);
     score += 10;
     scoreText.setText('Score: ' + score);
 }
-function hitBomb (player, flower2)
+function hitBomb (player, bomb)
 {
     this.physics.pause();
 
@@ -129,16 +151,16 @@ function hitBomb (player, flower2)
 
     
 }
-function collectStar (player, flower)
+function collectStar (player, star)
 {
     star.disableBody(true, true);
 
     score += 10;
     scoreText.setText('Score: ' + score);
 
-    if (flower.countActive(true) === 0)
+    if (stars.countActive(true) === 0)
     {
-        flower.children.iterate(function (child) {
+        stars.children.iterate(function (child) {
 
             child.enableBody(true, child.x, 0, true, true);
 
@@ -146,10 +168,10 @@ function collectStar (player, flower)
 
         var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-        var flower2 = flower2.create(x, 16, 'flower2');
-        flower2.setBounce(1);
-        flower2.setCollideWorldBounds(true);
-        flower2.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        var bomb = bombs.create(x, 16, 'bomb');
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
 
     }
 }
