@@ -38,7 +38,7 @@ var platforms;
 
 function create() {
 
-    this.cameras.main.setBounds(0,0,1900,600)
+    this.cameras.main.setBounds(0,0,5000,600)
     
     this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(1.5);
 
@@ -56,7 +56,7 @@ function create() {
 
     
     player.setCollideWorldBounds(false);
-    cameras.main.startFollow(player)
+    this.cameras.main.startFollow(player)
 
 
 
@@ -110,6 +110,7 @@ function create() {
 }
 
 function update() {
+    console.log(player.y)
     cursors = this.input.keyboard.createCursorKeys();
 
     if (cursors.left.isDown) {
