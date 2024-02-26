@@ -1,4 +1,7 @@
-p {
-	color: rgb(94, 81, 3);
-	color: rgba(94, 81, 3, .9);
+body {
+    margin: 0;
+    height: 100vh;           
+    display: flex;
+    justify-content: left;
+    align-items: left;
 }
