@@ -174,4 +174,4 @@ function collectStar (player, star)
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
 
     }
-}
+}   
