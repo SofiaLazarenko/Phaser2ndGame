@@ -2,6 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 1920,
     height: 1080,
+    
     physics: {
         default: 'arcade',
         arcade: {
@@ -14,11 +15,13 @@ var config = {
         create: create,
         update: update
     }
+    
 };
 
 var game = new Phaser.Game(config);
 var score = 0;
 var scoreText;
+ var worldWidth=10000;
 if (gameOver = true) {
     var gameText;
 }
@@ -38,7 +41,8 @@ var platforms;
 
 function create() {
 
-    this.cameras.main.setBounds(0,0,5000,600)
+    //this.add.titleSprite(0,0,worldWidth,1080,"sky").setOrigin(0,0);
+   
     
     this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(1.5);
 
@@ -47,15 +51,20 @@ function create() {
     platforms.create(0, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
     platforms.create(800, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
     platforms.create(1600, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+    platforms.create(2400, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+    platforms.create(3200, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+    
 
     platforms.create(600, 400, 'ground');
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
 
-    player = this.physics.add.sprite(100, 450, 'dude');
-
-    
+    player = this.physics.add.sprite(100, 450, 'dude').setScale(2.5);
+   
+    player.setBounce(0.2);
     player.setCollideWorldBounds(false);
+    this.cameras.main.setBounds(0,0,worldWidth,window.innerHeight);
+    this.physics.world.setBounds(0,0,worldWidth,window.innerHeight);
     this.cameras.main.startFollow(player)
 
 
@@ -168,3 +177,4 @@ function collectStar(player, star) {
 }
 
 
+//for(var n; n<10 ;n++)
