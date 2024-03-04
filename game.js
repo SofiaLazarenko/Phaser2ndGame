@@ -6,7 +6,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 400 },
             debug: false
         }
     },
@@ -18,7 +18,7 @@ var config = {
     
 };
 
-
+//створюєм гру
 var score = 0;
 var scoreText;
 var worldWidth=9600;
@@ -134,12 +134,12 @@ function update() {
     cursors = this.input.keyboard.createCursorKeys();
 
     if (cursors.left.isDown) {
-        player.setVelocityX(-160);
+        player.setVelocityX(-200);
 
         player.anims.play('left', true);
     }
     else if (cursors.right.isDown) {
-        player.setVelocityX(160);
+        player.setVelocityX(200);
 
         player.anims.play('right', true);
     }
@@ -150,7 +150,7 @@ function update() {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
-        player.setVelocityY(-330);
+        player.setVelocityY(-400);
     }
     //взаємодія з грошима
 }
@@ -187,6 +187,12 @@ function collectStar(player, star) {
         });
     }
 }
+
+//tileSprite()
+//setScale()
+//setOrigin()
+//Phaser.Math.Between()
+
 
 
 //for(var n; n<10 ;n++)
