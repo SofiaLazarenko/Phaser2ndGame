@@ -18,10 +18,11 @@ var config = {
     
 };
 
-var game = new Phaser.Game(config);
+
 var score = 0;
 var scoreText;
- var worldWidth=10000;
+var worldWidth=9600;
+ var game = new Phaser.Game(config);
 if (gameOver = true) {
     var gameText;
 }
@@ -30,6 +31,7 @@ function preload() {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
+    this.load.image('fire','assets/fire.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -41,7 +43,7 @@ var platforms;
 
 function create() {
 
-    //this.add.titleSprite(0,0,worldWidth,1080,"sky").setOrigin(0,0);
+    this.add.titleSprite(0,0,worldWidth,1080,"sky").setOrigin(0,0);
    
     
     this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(1.5);
