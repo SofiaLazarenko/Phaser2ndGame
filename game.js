@@ -26,7 +26,7 @@ var worldWidth=9600;
 if (gameOver = true) {
     var gameText;
 }
-
+//асети
 function preload() {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
@@ -38,39 +38,48 @@ function preload() {
         { frameWidth: 32, frameHeight: 48 }
     );
 }
-
+//фон
 var platforms;
 
 function create() {
 
-    this.add.titleSprite(0,0,worldWidth,1080,"sky").setOrigin(0,0);
+    this.add.tileSprite(0,0,worldWidth,1080,"sky").setOrigin(0,0);
    
     
     this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(1.5);
 
     platforms = this.physics.add.staticGroup();
+//платформа
+for(var x=0; x<worldWidth; x=x+500){
+    console.log(x)
+    platforms.create(x,1000,'ground').setOrigin(0,0).refreshBody();
+}
 
-    platforms.create(0, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    platforms.create(800, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    platforms.create(1600, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    platforms.create(2400, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    platforms.create(3200, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+
+
+    //platforms.create(0, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+   // platforms.create(800, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+    //platforms.create(1600, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+    //platforms.create(2400, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
+    //platforms.create(3200, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
     
 
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
+    //platforms.create(600, 400, 'ground');
+    //platforms.create(50, 250, 'ground');
+   // platforms.create(750, 220, 'ground');
 
     player = this.physics.add.sprite(100, 450, 'dude').setScale(2.5);
    
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
+
+    //камера
     this.cameras.main.setBounds(0,0,worldWidth,window.innerHeight);
     this.physics.world.setBounds(0,0,worldWidth,window.innerHeight);
     this.cameras.main.startFollow(player)
 
 
-
+//анімація
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -95,7 +104,7 @@ function create() {
 
 
     });
-
+//гроші
     stars = this.physics.add.group({
         key: 'star',
         repeat: 11,
@@ -119,7 +128,7 @@ function create() {
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
-
+//?
 function update() {
     console.log(player.y)
     cursors = this.input.keyboard.createCursorKeys();
@@ -143,6 +152,7 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-330);
     }
+    //взаємодія з грошима
 }
 function collectStar(player, star) {
     star.disableBody(true, true);
