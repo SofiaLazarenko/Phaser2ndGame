@@ -188,9 +188,10 @@ function collectStar(player, star) {
     }
 }
 
-//tileSprite()
+
+this.add.tileSprite().setOrigin()
 //setScale()
-//setOrigin()
+
 //Phaser.Math.Between()
 
 
