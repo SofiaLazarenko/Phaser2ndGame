@@ -31,7 +31,7 @@ function preload() {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
-    this.load.image('fire','assets/fire.png');
+    this.load.image('tre','assets/Tre.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -53,6 +53,14 @@ function create() {
 for(var x=0; x<worldWidth; x=x+500){
     console.log(x)
     platforms.create(x,1000,'ground').setOrigin(0,0).refreshBody();
+}
+
+//додаємо дерево
+tre= this.physics.add.staticGroup();
+//Додаємо дерева на всю ширину екрану
+for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
+    console.log(' x-'+ x)
+    tre.create(x, 1080-80,'tre').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
 }
 
 
