@@ -29,6 +29,9 @@ if (gameOver = true) {
 //асети
 function preload() {
     this.load.image('sky', 'assets/sky.png');
+    //this.load.image('Tile (14)'/'assets/Tile (14).png');
+    //this.load.image('Tile (15)'/'assets/Tile (15).png');
+    //this.load.image('Tile (16)'/'assets/Tile (16).png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('tre','assets/Tre.png');
@@ -42,11 +45,12 @@ function preload() {
 var platforms;
 
 function create() {
+ this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(3);
 
-    this.add.tileSprite(0,0,worldWidth,1080,"sky").setOrigin(0,0);
+    this.add.tileSprite(0,0,worldWidth,1080,'sky').setOrigin(0,0);
    
     
-    this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(1.5);
+   
 
     platforms = this.physics.add.staticGroup();
 //платформа
@@ -55,6 +59,12 @@ for(var x=0; x<worldWidth; x=x+500){
     platforms.create(x,1000,'ground').setOrigin(0,0).refreshBody();
 }
 
+
+//платформи 
+//for(var x=0; x < worldWidth; x=x+Phaser.Math.FloatBetween(400,500)){
+    //var y= Phaser.Math.FloatBetween(100,1000)
+    //platforms.create(x,y,'ground');
+//}
 //додаємо дерево
 tre= this.physics.add.staticGroup();
 //Додаємо дерева на всю ширину екрану
@@ -128,13 +138,27 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#b8b814' });
+//намагаємось змусити скор слідууати за гравцем
+    scoreBoard = this.add.container(player.x, 100);
+    scoreText = this.add.text(player.x, 100, "score: 0", { fontSize: '40px', fill: '#EACE06' });
+    scoreBoard.add(scoreText);
 
-    bombs = this.physics.add.group();
+    this.tweens.add({
+        targets: scoreBoard,
+        x: scoreBoard.x + player.x,
+        ease: 'Linear',
+        duration: 1,
+        delay: 1,
+        yoyo: false,
+        repeat: -1
+    });
+    
 
-    this.physics.add.collider(bombs, platforms);
+    //bombs = this.physics.add.group();
 
-    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    //this.physics.add.collider(bombs, platforms);
+
+    //this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 //?
 function update() {
@@ -195,7 +219,8 @@ function collectStar(player, star) {
         });
     }
 }
-
+//скор
+scoreText.x = player.body.position.x; //??
 
 this.add.tileSprite().setOrigin()
 //setScale()
