@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 1920,
     height: 1080,
-    
+    pixelArt:true,
     physics: {
         default: 'arcade',
         arcade: {
@@ -45,7 +45,7 @@ function preload() {
 var platforms;
 
 function create() {
- this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(3);
+ this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(2.5);
 
     this.add.tileSprite(0,0,worldWidth,1080,'sky').setOrigin(0,0);
    
@@ -58,6 +58,7 @@ for(var x=0; x<worldWidth; x=x+500){
     console.log(x)
     platforms.create(x,1000,'ground').setOrigin(0,0).refreshBody();
 }
+
 
 
 //платформи 
@@ -86,7 +87,7 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     //platforms.create(50, 250, 'ground');
    // platforms.create(750, 220, 'ground');
 
-    player = this.physics.add.sprite(100, 450, 'dude').setScale(2.5);
+    player = this.physics.add.sprite(100, 450, 'dude').setScale(4);
    
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
@@ -138,20 +139,14 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
-//намагаємось змусити скор слідууати за гравцем
-    scoreBoard = this.add.container(player.x, 100);
-    scoreText = this.add.text(player.x, 100, "score: 0", { fontSize: '40px', fill: '#EACE06' });
-    scoreBoard.add(scoreText);
+scoreText = this.add.text(100, 100, "score: 0", { fontSize: '40px', fill: '#EACE06' })
+.setScrollFactor(0);
 
-    this.tweens.add({
-        targets: scoreBoard,
-        x: scoreBoard.x + player.x,
-        ease: 'Linear',
-        duration: 1,
-        delay: 1,
-        yoyo: false,
-        repeat: -1
-    });
+//намагаємось змусити скор слідууати за гравцем
+   
+   
+
+   
     
 
     //bombs = this.physics.add.group();
@@ -184,12 +179,7 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-400);
     }
-    //взаємодія з грошима
-}
-function collectStar(player, star) {
-    star.disableBody(true, true);
-    score += 10;
-    scoreText.setText('Score: ' + score);
+ 
 }
 function hitBomb(player, bomb) {
     this.physics.pause();
@@ -199,8 +189,6 @@ function hitBomb(player, bomb) {
     player.anims.play('turn');
 
     gameOver = true;
-
-
 
 
 
@@ -219,14 +207,3 @@ function collectStar(player, star) {
         });
     }
 }
-//скор
-scoreText.x = player.body.position.x; //??
-
-this.add.tileSprite().setOrigin()
-//setScale()
-
-//Phaser.Math.Between()
-
-
-
-//for(var n; n<10 ;n++)
