@@ -29,9 +29,9 @@ if (gameOver = true) {
 //асети
 function preload() {
     this.load.image('sky', 'assets/sky.png');
-    //this.load.image('Tile (14)'/'assets/Tile (14).png');
-    //this.load.image('Tile (15)'/'assets/Tile (15).png');
-    //this.load.image('Tile (16)'/'assets/Tile (16).png');
+    this.load.image('Tile (14)'/'assets/Tile (14).png');
+    this.load.image('Tile (15)'/'assets/Tile (15).png');
+    this.load.image('Tile (16)'/'assets/Tile (16).png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('tre','assets/Tre.png');
@@ -56,7 +56,7 @@ function create() {
 //платформа
 for(var x=0; x<worldWidth; x=x+500){
     console.log(x)
-    platforms.create(x,1000,'ground').setOrigin(0,0).refreshBody();
+    platforms.create(x,1000,'Tile (15) ').setOrigin(0,0).refreshBody();
 }
 
 
@@ -139,11 +139,18 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
+    //намагаємось змусити скор слідууати за гравцем
+   
 scoreText = this.add.text(100, 100, "score: 0", { fontSize: '40px', fill: '#EACE06' })
 .setScrollFactor(0);
 
-//намагаємось змусити скор слідууати за гравцем
-   
+for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) {
+     var y = Phaser.Math.FloatBetween(700, 93 * 10) platforms.create(x, y, 'platformStart'); 
+     var i;
+      for (i = 1; i < Phaser.Math.Between(0, 5); i++) {
+         platforms.create(x + 100 * i, y, 'platformOne');
+         } platforms.create(x + 100 * i, y, 'platformFinish'); 
+        }
    
 
    
