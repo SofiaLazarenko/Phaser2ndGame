@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 1920,
     height: 1080,
-    pixelArt:true,
+    //pixelArt:true,
     physics: {
         default: 'arcade',
         arcade: {
@@ -22,6 +22,7 @@ var config = {
 var score = 0;
 var scoreText;
 var worldWidth=9600;
+var   life=5;
  var game = new Phaser.Game(config);
 if (gameOver = true) {
     var gameText;
@@ -29,12 +30,14 @@ if (gameOver = true) {
 //асети
 function preload() {
     this.load.image('sky', 'assets/sky.png');
-    this.load.image('Tile (14)'/'assets/Tile (14).png');
-    this.load.image('Tile (15)'/'assets/Tile (15).png');
-    this.load.image('Tile (16)'/'assets/Tile (16).png');
-    this.load.image('ground', 'assets/platform.png');
+    this.load.image('platformStart','assets/platformStart.png');
+    this.load.image('platformOne','assets/platformOne.png');
+    this.load.image('platformFinish','assets/platformFinish.png');
+    //this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('tre','assets/Tre.png');
+    this.load.image('ArrowSign','assets/ArrowSign.png');
+    this.load.image('Bush (2)','assets/Bush (2).png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -45,7 +48,7 @@ function preload() {
 var platforms;
 
 function create() {
- this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(2.5);
+ this.add.image(0, 0, 'sky').setOrigin(0,0).setScale(60);
 
     this.add.tileSprite(0,0,worldWidth,1080,'sky').setOrigin(0,0);
    
@@ -54,18 +57,14 @@ function create() {
 
     platforms = this.physics.add.staticGroup();
 //платформа
-for(var x=0; x<worldWidth; x=x+500){
+for(var x=0; x<worldWidth; x=x+100){
     console.log(x)
-    platforms.create(x,1000,'Tile (15) ').setOrigin(0,0).refreshBody();
+    platforms.create(x,1000,'platformOne').setOrigin(0,0).refreshBody();
 }
 
 
 
-//платформи 
-//for(var x=0; x < worldWidth; x=x+Phaser.Math.FloatBetween(400,500)){
-    //var y= Phaser.Math.FloatBetween(100,1000)
-    //platforms.create(x,y,'ground');
-//}
+
 //додаємо дерево
 tre= this.physics.add.staticGroup();
 //Додаємо дерева на всю ширину екрану
@@ -73,21 +72,26 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     console.log(' x-'+ x)
     tre.create(x, 1080-80,'tre').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
 }
+//додаємо знак
+ArrowSign=this.physics.add.staticGroup();
+//Додаємо знаки на всю ширину екрану
+for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
+    console.log(' x-'+ x)
+    ArrowSign.create(x, 1080-80,'ArrowSign').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
+}
+
+//Bush (2) = this.physics.add.staticGroup();
+//Додаємо дерева на всю ширину екрану
+//for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
+    //console.log(' x-'+ x)
+    //Bush (2).create(x, 1080-80,'Bush (2)').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
+//}
 
 
 
-    //platforms.create(0, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-   // platforms.create(800, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    //platforms.create(1600, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    //platforms.create(2400, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    //platforms.create(3200, 1000, 'ground').setOrigin(0,0).setScale(2).refreshBody();
-    
 
-    //platforms.create(600, 400, 'ground');
-    //platforms.create(50, 250, 'ground');
-   // platforms.create(750, 220, 'ground');
 
-    player = this.physics.add.sprite(100, 450, 'dude').setScale(4);
+    player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
    
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
@@ -141,18 +145,31 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.physics.add.overlap(player, stars, collectStar, null, this);
     //намагаємось змусити скор слідууати за гравцем
    
-scoreText = this.add.text(100, 100, "score: 0", { fontSize: '40px', fill: '#EACE06' })
+scoreText = this.add.text(100, 100, "score: 0", { fontSize: '40px', fill: '#8FBC8F' })
 .setScrollFactor(0);
-
+//життя
+lifeText= this.add.text(1500,100,showLife(), { frontSize: '40px', fill:'#8FBC8F'})
+.setOrigin(0,0)
+.setScrollFactor(0)
+//рандомні платформи
 for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) {
-     var y = Phaser.Math.FloatBetween(700, 93 * 10) platforms.create(x, y, 'platformStart'); 
-     var i;
-      for (i = 1; i < Phaser.Math.Between(0, 5); i++) {
+     var y = Phaser.Math.FloatBetween(700, 93 * 10)
+      platforms.create(x, y, 'platformStart'); 
+      for (var i = 1; i < Phaser.Math.Between(0, 5); i++) {
          platforms.create(x + 100 * i, y, 'platformOne');
-         } platforms.create(x + 100 * i, y, 'platformFinish'); 
+         } platforms.create(x + 100 * i, y, 'platformFinish');
         }
-   
+   function createBombs(){
 
+   }
+//смуга життя
+function showLife() {
+    var lifeLine = "Життя:" 
+    for ( var i=0; i< life ; i++){
+        lifeLine += '💚'
+    }
+    return lifeLine
+}
    
     
 
@@ -189,13 +206,15 @@ function update() {
  
 }
 function hitBomb(player, bomb) {
-    this.physics.pause();
-
+    //this.physics.pause();
+  bomb.disableBody(true,true);
     player.setTint(0xff0000);
-
+    life -= 1
+    lifeText.setText(showLife())
+  console.log('boom')
     player.anims.play('turn');
 
-    gameOver = true;
+    if(life== 0) gameOver=true;
 
 
 
@@ -214,3 +233,5 @@ function collectStar(player, star) {
         });
     }
 }
+
+
