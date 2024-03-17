@@ -173,11 +173,11 @@ function showLife() {
    
     
 
-    //bombs = this.physics.add.group();
+    bombs = this.physics.add.group();
 
-    //this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(bombs, platforms);
 
-    //this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 //?
 function update() {
