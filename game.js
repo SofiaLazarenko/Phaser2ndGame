@@ -231,7 +231,13 @@ function collectStar(player, star) {
             child.enableBody(true, child.x, 0, true, true);
 
         });
+              var bomb = bombs.create(x,16,'bomb');
+             bomb.setBounce(1);
+                 bomb.setCollideWorldBounds(true);
+             bomb.setVelocity(Phaser.Math.Between(-200,200),20);
+
     }
 }
 
-
+//var x = (player.x<800) P
+ 
