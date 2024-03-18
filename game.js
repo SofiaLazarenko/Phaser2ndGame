@@ -100,7 +100,10 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.cameras.main.setBounds(0,0,worldWidth,window.innerHeight);
     this.physics.world.setBounds(0,0,worldWidth,window.innerHeight);
     this.cameras.main.startFollow(player)
-
+ bombs = thsi.physics.add.group();
+ this.physics.add(bombs,platformOne);
+ this.physics.add.collider(player,bombs,hitBomb,null,this);
+ 
 
 //анімація
     this.anims.create({
@@ -160,6 +163,7 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) {
          } platforms.create(x + 100 * i, y, 'platformFinish');
         }
    function createBombs(){
+
 
    }
 //смуга життя
