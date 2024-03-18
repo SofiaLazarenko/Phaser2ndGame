@@ -22,6 +22,7 @@ var config = {
 var score = 0;
 var scoreText;
 var worldWidth=9600;
+//var bomb;
 var   life=5;
  var game = new Phaser.Game(config);
 if (gameOver = true) {
@@ -37,7 +38,7 @@ function preload() {
     this.load.image('star', 'assets/star.png');
     this.load.image('tre','assets/Tre.png');
     this.load.image('ArrowSign','assets/ArrowSign.png');
-    this.load.image('Bush (2)','assets/Bush (2).png');
+   // this.load.image('Bush (2)','assets/Bush (2).png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -63,6 +64,8 @@ for(var x=0; x<worldWidth; x=x+100){
 }
 
 
+ 
+
 
 
 //додаємо дерево
@@ -80,13 +83,6 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     ArrowSign.create(x, 1080-80,'ArrowSign').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
 }
 
-//Bush (2) = this.physics.add.staticGroup();
-//Додаємо дерева на всю ширину екрану
-//for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
-    //console.log(' x-'+ x)
-    //Bush (2).create(x, 1080-80,'Bush (2)').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
-//}
-
 
 
 
@@ -100,11 +96,7 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.cameras.main.setBounds(0,0,worldWidth,window.innerHeight);
     this.physics.world.setBounds(0,0,worldWidth,window.innerHeight);
     this.cameras.main.startFollow(player)
- bombs = thsi.physics.add.group();
- this.physics.add(bombs,platformOne);
- this.physics.add.collider(player,bombs,hitBomb,null,this);
  
-
 //анімація
     this.anims.create({
         key: 'left',
@@ -133,8 +125,8 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
 //гроші
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        repeat: 1200,
+        setXY: { x: 12, y: 0, stepX: 120 }
     });
 
     stars.children.iterate(function (child) {
@@ -151,9 +143,13 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
 scoreText = this.add.text(100, 100, "score: 0", { fontSize: '40px', fill: '#8FBC8F' })
 .setScrollFactor(0);
 //життя
-lifeText= this.add.text(1500,100,showLife(), { frontSize: '40px', fill:'#8FBC8F'})
+lifeText= this.add.text(1500,100,showLife(), { fontSize: '30px', fill:'#8FBC8F'})
 .setOrigin(0,0)
-.setScrollFactor(0)
+.setScrollFactor(0);
+//bombs = this.physics.add.group();
+//this.physics.add(bombs,platformOne);
+//this.physics.add.collider(player,bombs,hitBomb,null,this);
+
 //рандомні платформи
 for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) {
      var y = Phaser.Math.FloatBetween(700, 93 * 10)
@@ -175,13 +171,26 @@ function showLife() {
     return lifeLine
 }
    
-    
+function hitBomb(player, bomb) {
+    //this.physics.pause();
+  bomb.disableBody(true,true);
+    player.setTint(0xff0000);
+    life -= 1;
+    lifeText.setText(showLife())
+  console.log('boom')
+    //player.anims.play('turn');
+
+    if(life== 0) gameOver=true;
+
+
+
+}
 
     bombs = this.physics.add.group();
 
     this.physics.add.collider(bombs, platforms);
 
-    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(player, bombs, hitBomb, null,this);
 }
 //?
 function update() {
@@ -209,39 +218,26 @@ function update() {
     }
  
 }
-function hitBomb(player, bomb) {
-    //this.physics.pause();
-  bomb.disableBody(true,true);
-    player.setTint(0xff0000);
-    life -= 1
-    lifeText.setText(showLife())
-  console.log('boom')
-    player.anims.play('turn');
 
-    if(life== 0) gameOver=true;
-
-
-
-}
 function collectStar(player, star) {
     star.disableBody(true, true);
 
     score += 10;
     scoreText.setText('Score: ' + score);
 
-    if (stars.countActive(true) === 0) {
-        stars.children.iterate(function (child) {
+    //if (stars.countActive(true) === 0) {
+        //stars.children.iterate(function (child) {
 
-            child.enableBody(true, child.x, 0, true, true);
+            //child.enableBody(true, child.x, 0, true, true);
 
-        });
+       // });
+        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
               var bomb = bombs.create(x,16,'bomb');
              bomb.setBounce(1);
                  bomb.setCollideWorldBounds(true);
              bomb.setVelocity(Phaser.Math.Between(-200,200),20);
 
     }
-}
-
+//}
 //var x = (player.x<800) P
  
