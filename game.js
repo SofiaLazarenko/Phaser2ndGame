@@ -27,6 +27,8 @@ var   life=5;
  var game = new Phaser.Game(config);
 if (gameOver = true) {
     var gameText;
+    player.setTint(0xff0000);
+
 }
 //асети
 function preload() {
@@ -36,9 +38,11 @@ function preload() {
     this.load.image('platformFinish','assets/platformFinish.png');
     //this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
+    this.load.image('enemy', 'assets/enemy.png');
+    
     this.load.image('tre','assets/Tre.png');
     this.load.image('ArrowSign','assets/ArrowSign.png');
-   // this.load.image('Bush (2)','assets/Bush (2).png');
+    this.load.image('Bush','assets/Bush (2).png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -83,12 +87,20 @@ for(var x = 500; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     ArrowSign.create(x, 1080-80,'ArrowSign').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
 }
 
-
+Bush= this.physics.add.staticGroup();
+//Додаємо дерева на всю ширину екрану
+for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
+    console.log(' x-'+ x)
+    Bush.create(x, 1080-80,'Bush').setOrigin(0,1).setScale(Phaser.Math.FloatBetween(0.5, 1)).refreshBody();
+}
 
 
 
     player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
-   
+  
+       
+      
+
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
 
@@ -172,7 +184,7 @@ function showLife() {
 }
    
 function hitBomb(player, bomb) {
-    //this.physics.pause();
+    
   bomb.disableBody(true,true);
    
     life -= 1;
@@ -180,17 +192,24 @@ function hitBomb(player, bomb) {
   console.log('boom')
     //player.anims.play('turn');
 
-    if(life== 0) gameOver=true;
- player.setTint(0xff0000);
-
+    if(life== 0){
+        this.physics.pause();
+    } gameOver=true;
+ 
 
 }
 
+
+   
+  
+  
+  
     bombs = this.physics.add.group();
 
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
+   
 }
 //?
 function update() {
@@ -225,12 +244,6 @@ function collectStar(player, star) {
     score += 10;
     scoreText.setText('Score: ' + score);
 
-    //if (stars.countActive(true) === 0) {
-        //stars.children.iterate(function (child) {
-
-            //child.enableBody(true, child.x, 0, true, true);
-
-       // });
         var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
               var bomb = bombs.create(x,16,'bomb');
              bomb.setBounce(1);
