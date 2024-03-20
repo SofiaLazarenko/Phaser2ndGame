@@ -174,14 +174,14 @@ function showLife() {
 function hitBomb(player, bomb) {
     //this.physics.pause();
   bomb.disableBody(true,true);
-    player.setTint(0xff0000);
+   
     life -= 1;
     lifeText.setText(showLife())
   console.log('boom')
     //player.anims.play('turn');
 
     if(life== 0) gameOver=true;
-
+ player.setTint(0xff0000);
 
 
 }
@@ -240,4 +240,4 @@ function collectStar(player, star) {
     }
 //}
 //var x = (player.x<800) P
- 
+ //
