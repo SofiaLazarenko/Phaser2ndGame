@@ -210,7 +210,7 @@ function hitBomb(player, bomb) {
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
 
-    this.enemy = this.physics.add.sprite(600, 800,  'enemy').setScale(.9);
+    this.enemy = this.physics.add.sprite(600, 800,  'enemy').setScale(0.5);
     this.enemy.setCollideWorldBounds(true);
     this.physics.add.collider(this.enemy, platforms);
     this.physics.add.collider(this.player, this.enemy, this.playerDie, null, this);
