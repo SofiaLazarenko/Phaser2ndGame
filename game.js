@@ -212,8 +212,10 @@ function hitBomb(player, bomb) {
 
     this.enemy = this.physics.add.sprite(600, 800,  'enemy').setScale(.9);
     this.enemy.setCollideWorldBounds(true);
- 
-  
+    this.physics.add.collider(this.player, this.enemy, this.playerDie, null, this);
+    enemyFollows() 
+        this.physics.moveToObject(this.enemy, this.player, 50);
+    
    
 }
 //?
