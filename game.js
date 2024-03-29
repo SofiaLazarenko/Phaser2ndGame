@@ -209,6 +209,10 @@ function hitBomb(player, bomb) {
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
+
+    const enemies = this.physics.add.group();
+    enemies.create(320, 10, 'enemy');  
+  
    
 }
 //?
