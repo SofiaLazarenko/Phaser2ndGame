@@ -209,13 +209,13 @@ function hitBomb(player, bomb) {
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
+ // Enable physics for player and enemy
+    player.setCollideWorldBounds(true);
+    enemy.setCollideWorldBounds(true);
 
-    this.enemy = this.physics.add.sprite(600, 800,  'enemy').setScale(0.5);
-    this.enemy.setCollideWorldBounds(true);
-    this.physics.add.collider(this.enemy, platforms);
-    this.physics.add.collider(this.player, this.enemy , null, this);
-    enemyFollows() 
-        this.physics.moveToObject(this.enemy, this.player, 50);
+    // Set up collision between player and enemy
+    this.physics.add.collider(player, enemy);
+    
     
    
 }
@@ -245,7 +245,13 @@ function update() {
     }
  
 }
-
+ const speed = 100;
+    const dx = player.x - enemy.x;
+    const dy = player.y - enemy.y;
+    const angle = Math.atan2(dy, dx);
+    const velocityX = Math.cos(angle) * speed;
+    const velocityY = Math.sin(angle) * speed;
+    enemy.setVelocity(velocityX, velocityY);
 function collectStar(player, star) {
     star.disableBody(true, true);
 
@@ -262,3 +268,9 @@ function collectStar(player, star) {
 //}
 //var x = (player.x<800) P
  //
+ 
+   
+
+
+    // Make enemy follow the player
+   
