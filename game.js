@@ -157,6 +157,9 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
+    this.physics.add.collider(enemy, platforms);
+    
+   
     this.physics.add.overlap(player, stars, collectStar, null, this);
     //намагаємось змусити скор слідууати за гравцем
    
