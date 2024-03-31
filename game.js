@@ -254,8 +254,8 @@ function update() {
 var angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, player.x, player.y);
 
 // Set enemy velocity towards the player
-const dx = player.x - enemy.x;
-const dy = player.y - enemy.y;
+const dx = player.x + enemy.x;
+const dy = player.y +enemy.y;
 
 // Normalize the direction vector
 const length = Math.sqrt(dx * dx + dy * dy);
