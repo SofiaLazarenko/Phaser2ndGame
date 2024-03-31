@@ -221,7 +221,7 @@ function hitBomb(player, bomb) {
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
-    //this.physics.add.collider(player, enemy, gameOver, null, this);
+    this.physics.add.collider(player, enemy, gameOver, null, this);
       
    
 }
