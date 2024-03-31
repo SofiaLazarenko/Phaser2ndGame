@@ -221,7 +221,7 @@ function hitBomb(player, bomb) {
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
-    
+
     this.physics.add.collider(player, enemy, gameOver, null, this);
       
    
@@ -252,18 +252,18 @@ function update() {
     }
  
 }
-var angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, player.x, player.y);
 
-// Set enemy velocity towards the player
+
+
 const dx = player.x - enemy.x;
 const dy = player.y - enemy.y;
 
-// Normalize the direction vector
+
 const length = Math.sqrt(dx * dx + dy * dy);
 const directionX = dx / length;
 const directionY = dy / length;
 
-// Set enemy velocity to move towards the player
+
 const speed = 600;
 enemy.setVelocity(directionX * speed, directionY * speed);
 
