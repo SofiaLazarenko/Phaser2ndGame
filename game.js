@@ -101,8 +101,8 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
         
     enemy = this.physics.add.sprite(700, 300, 'enemy');
  // Enable physics for player and enemy
-    player.setCollideWorldBounds(true);
-    enemy.setCollideWorldBounds(true);
+    
+    enemy.setCollideWorldBounds(false);
 
     // Set up collision between player and enemy
     this.physics.add.collider(player, enemy);
