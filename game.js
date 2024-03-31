@@ -23,6 +23,7 @@ var score = 0;
 var scoreText;
 var worldWidth=9600;
 //var bomb;
+var enemy;
 var   life=5;
  var game = new Phaser.Game(config);
 if (gameOver = true) {
@@ -247,14 +248,12 @@ function update() {
     }
  
 }
- const speed = 100;
-    const dx = player.x - enemy.x;
-    const dy = player.y - enemy.y;
-    const angle = Math.atan2(dy, dx);
-    const velocityX = Math.cos(angle) * speed;
-    const velocityY = Math.sin(angle) * speed;
-    enemy.setVelocity(velocityX, velocityY);
+var angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, player.x, player.y);
 
+// Set enemy velocity towards the player
+var speed = 100;
+enemy.setVelocityX(Math.cos(angle) * speed);
+enemy.setVelocityY(Math.sin(angle) * speed);
 function collectStar(player, star) {
     star.disableBody(true, true);
 
