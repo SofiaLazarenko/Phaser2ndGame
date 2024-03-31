@@ -108,8 +108,7 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
    
     // Set up collision between player and enemy
    
-    this.physics.add.collider(player, enemy, gameOver, null, this);
-      
+   
 
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
@@ -222,7 +221,8 @@ function hitBomb(player, bomb) {
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
-   
+    this.physics.add.collider(player, enemy, gameOver, null, this);
+      
    
 }
 //?
