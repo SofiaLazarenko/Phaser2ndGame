@@ -18,14 +18,14 @@ let enemy;
 
 // Preload assets
 function preload() {
-    this.load.image('player', 'assets/player.png');
+    this.load.image('player', 'assets/dude.png');
     this.load.image('enemy', 'assets/enemy.png');
 }
 
 // Create the game world
 function create() {
     // Add player and enemy sprites to the scene
-    player = this.physics.add.sprite(100, 100, 'player');
+    player = this.physics.add.sprite(100, 100, 'dude');
     enemy = this.physics.add.sprite(700, 300, 'enemy');
 
     // Add collision detection between player and enemy
