@@ -98,7 +98,16 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
 
     player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
   
-       
+        
+    enemy = this.physics.add.sprite(700, 300, 'enemy');
+ // Enable physics for player and enemy
+    player.setCollideWorldBounds(true);
+    enemy.setCollideWorldBounds(true);
+
+    // Set up collision between player and enemy
+    this.physics.add.collider(player, enemy);
+    
+    
       
 
     player.setBounce(0.2);
@@ -209,14 +218,7 @@ function hitBomb(player, bomb) {
     this.physics.add.collider(bombs, platforms);
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
- // Enable physics for player and enemy
-    player.setCollideWorldBounds(true);
-    enemy.setCollideWorldBounds(true);
-
-    // Set up collision between player and enemy
-    this.physics.add.collider(player, enemy);
-    
-    
+   
    
 }
 //?
@@ -252,6 +254,7 @@ function update() {
     const velocityX = Math.cos(angle) * speed;
     const velocityY = Math.sin(angle) * speed;
     enemy.setVelocity(velocityX, velocityY);
+
 function collectStar(player, star) {
     star.disableBody(true, true);
 
