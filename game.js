@@ -100,14 +100,12 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
   
         
-    enemy = this.physics.add.sprite(700, 300, 'enemy');
+    enemy = this.physics.add.sprite(700, 300, 'enemy').setScale(0.2);
  // Enable physics for player and enemy
     
-    enemy.setCollideWorldBounds(false);
-
+   
     // Set up collision between player and enemy
     this.physics.add.collider(player, enemy);
-    
     
       
 
@@ -251,9 +249,17 @@ function update() {
 var angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, player.x, player.y);
 
 // Set enemy velocity towards the player
-var speed = 100;
-enemy.setVelocityX(Math.cos(angle) * speed);
-enemy.setVelocityY(Math.sin(angle) * speed);
+const dx = player.x - enemy.x;
+const dy = player.y - enemy.y;
+
+// Normalize the direction vector
+const length = Math.sqrt(dx * dx + dy * dy);
+const directionX = dx / length;
+const directionY = dy / length;
+
+// Set enemy velocity to move towards the player
+const speed = 100;
+enemy.setVelocity(directionX * speed, directionY * speed);
 function collectStar(player, star) {
     star.disableBody(true, true);
 
@@ -267,12 +273,9 @@ function collectStar(player, star) {
              bomb.setVelocity(Phaser.Math.Between(-200,200),20);
 
     }
-//}
-//var x = (player.x<800) P
- //
- 
+
    
 
 
-    // Make enemy follow the player
+    
    
