@@ -263,7 +263,7 @@ const directionX = dx / length;
 const directionY = dy / length;
 
 // Set enemy velocity to move towards the player
-const speed = 100;
+const speed = 400;
 enemy.setVelocity(directionX * speed, directionY * speed);
 function collectStar(player, star) {
     star.disableBody(true, true);
@@ -279,8 +279,5 @@ function collectStar(player, star) {
 
     }
 
-   
 
-
-    ////h
    
