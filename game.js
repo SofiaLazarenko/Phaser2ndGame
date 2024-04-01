@@ -112,7 +112,7 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
 
     player.setBounce(0.2);
     player.setCollideWorldBounds(false);
-
+    enemy.setCollideWorldBounds(false);
     //камера
     this.cameras.main.setBounds(0,0,worldWidth,window.innerHeight);
     this.physics.world.setBounds(0,0,worldWidth,window.innerHeight);
@@ -222,7 +222,7 @@ function hitBomb(player, bomb) {
 
     this.physics.add.collider(player, bombs, hitBomb, null,this);
 
-    this.physics.add.collider(player, enemy, gameOver, null, this);
+    this.physics.add.collider(player, enemy);
       
    
 }
