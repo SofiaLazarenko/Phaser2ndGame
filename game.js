@@ -24,6 +24,8 @@ var scoreText;
 var worldWidth=9600;
 //var bomb;
 var enemy;
+var ENEMY_SPEED = 200;
+var TRIGGER_DISTANCE = 150;
 var   life=5;
  var game = new Phaser.Game(config);
 if (gameOver = true) {
@@ -226,6 +228,23 @@ function hitBomb(player, bomb) {
       
    
 }
+
+function enemyController(){
+    var dx = player.x - enemy.x > 0 ? player.x - enemy.x : -(player.x - enemy.x);
+
+    if(dx < TRIGGER_DISTANCE){
+        if(player.x < enemy.x){
+            enemy.setVelocityX(ENEMY_SPEED)
+        }
+        else{
+            enemy.setVelocityX(-ENEMY_SPEED)
+        }
+    }
+    // else{
+    //     enemy.setVelocityX(0)
+    // }
+}
+
 //?
 function update() {
     console.log(player.y)
@@ -251,7 +270,7 @@ function update() {
         player.setVelocityY(-400);
     }
  
-    
+    enemyController();
    
            
     
