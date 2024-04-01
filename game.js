@@ -105,11 +105,7 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     enemy = this.physics.add.sprite(500, 300, 'enemy').setScale(0.2);
 
 
- // Enable physics for player and enemy
-    
-   
-    // Set up collision between player and enemy
-   
+ 
    
 
     player.setBounce(0.2);
@@ -162,7 +158,9 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     this.physics.add.collider(stars, platforms);
     this.physics.add.collider(enemy, platforms);
     
-   
+    this.physics.add.collider( player,enemy,gameOver==true);
+    
+    
     this.physics.add.overlap(player, stars, collectStar, null, this);
     //намагаємось змусити скор слідууати за гравцем
    
