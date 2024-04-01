@@ -100,7 +100,7 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
   
         
-    enemy = this.physics.add.sprite(700, 300, 'enemy').setScale(0.2);
+    enemy = this.physics.add.sprite(500, 300, 'enemy').setScale(0.2);
 
 
  // Enable physics for player and enemy
@@ -251,6 +251,12 @@ function update() {
         player.setVelocityY(-400);
     }
  
+    
+   
+           
+    
+    
+
 }
 
 
