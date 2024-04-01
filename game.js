@@ -25,6 +25,7 @@ var worldWidth=9600;
 //var bomb;
 var enemy;
 var   life=5;
+//var length =3;
  var game = new Phaser.Game(config);
 if (gameOver = true) {
     var gameText;
@@ -103,10 +104,7 @@ for(var x = 1000; x<worldWidth; x=x+Phaser.Math.FloatBetween(300, 1600)){
     enemy = this.physics.add.sprite(700, 300, 'enemy').setScale(0.2);
 
 
- // Enable physics for player and enemy
-    
-   
-    // Set up collision between player and enemy
+ 
    
    
 
@@ -176,7 +174,7 @@ lifeText= this.add.text(1500,100,showLife(), { fontSize: '30px', fill:'#8FBC8F'}
 
 //рандомні платформи
 for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) {
-     var y = Phaser.Math.FloatBetween(700, 93 * 10)
+     var y = Phaser.Math.FloatBetween(500, 93 * 10)
       platforms.create(x, y, 'platformStart'); 
       for (var i = 1; i < Phaser.Math.Between(0, 5); i++) {
          platforms.create(x + 100 * i, y, 'platformOne');
@@ -250,23 +248,19 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-400);
     }
- 
+  
 }
 
 
 
-const dx = player.x - enemy.x;
-const dy = player.y - enemy.y;
+
+const directionX = 400;
+const directionY =400;
 
 
-const length = Math.sqrt(dx * dx + dy * dy);
-const directionX = dx / length;
-const directionY = dy / length;
-
-
-const speed = 600;
+var speed = 1000;
 enemy.setVelocity(directionX * speed, directionY * speed);
-
+var enemy;if(Math.distance(this.player.x, this.player.y, enemy.x, enemy.y) <= 10)
 
 function collectStar(player, star) {
     star.disableBody(true, true);
